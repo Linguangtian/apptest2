@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_swiper/flutter_swiper.dart';
 class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,58 @@ class HomePage extends StatelessWidget{
 
 }
 
-
 class HomeCentent extends StatelessWidget{
+    List imgList = [
+
+      {"url":"images/1.png"},
+      {"url":"images/3.png"},
+    ];
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return  new Image.asset(
+  /* var image =  new Image.asset(
       'images/1.png',
       width: 600.0,
       height: 240.0,
       fit: BoxFit.cover,
     );
+*/
+
+
+
+
+      return  Column(
+        children: [
+          /**
+           * 必须要套Container，才能使用轮播图，否则会报错
+           */
+        Container(
+          height: 150,
+          child:AspectRatio(
+            aspectRatio: 16/9,
+            child:    Swiper(
+              itemBuilder: (BuildContext context,int index){    //每次循环遍历时，将i赋值给index
+                return new Image.asset(
+                  imgList[index]['url'],
+                  fit: BoxFit.fill,);
+              },
+              itemCount: imgList.length,
+              pagination: new SwiperPagination(), //设置：分页器.
+              loop: true,   //无限循环
+              autoplay: true, //图片自动轮播
+//                control: new SwiperControl(),   //设置：左右的箭头
+            ),
+          ),
+        )
+
+
+        ],
+
+
+
+      );
+
   }
 }
 

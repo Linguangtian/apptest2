@@ -4,8 +4,10 @@ import '../pages/HomePage.dart';
 import '../pages/ListPage.dart';
 import '../pages/CollectPage.dart';
 import '../pages/Tabs.dart';
+import '../pages/News.dart';
 
 import 'package:flutter/material.dart';
+
 
 //配置路由
 final  routes={                   //配置命名路由
@@ -13,7 +15,8 @@ final  routes={                   //配置命名路由
   '/home':(context)=>HomePage(),
   '/list':(context)=>ListPage(),
   '/collect':(context)=>CollectPage(),
-  '/':(context)=>Tabs(),
+  '/tabs':(context)=>Tabs(),
+  '/':(context)=>News(),
   '/httpdemo':(context)=>HttpDemo(),
 };
 
