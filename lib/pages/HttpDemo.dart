@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 class HttpDemo extends StatefulWidget {
   _HttpDemoState createState() => _HttpDemoState();
 }
@@ -18,7 +19,8 @@ class _HttpDemoState extends State<HttpDemo> {
   }
   _getData() async{
     var apiUrl="http://a.itying.com/api/productlist";
-    var result=await http.get(apiUrl);
+    Response res = await Dio().get(apiUrl);
+    var   result =  json.decode(res.data);
     if(result.statusCode==200){
       print(result.body);
       setState(() {

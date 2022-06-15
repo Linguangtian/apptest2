@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class News extends StatefulWidget{
-  News({Key? key}) : super(key: key);   //动态渲染数据.super父类
+  News({Key? key}) : super(key: key);   //动态渲染数据.super父类  StatefulWidget
 
   _News createState() => _News();
 }
@@ -35,7 +35,7 @@ class _News extends State{
   }
 
   _getData() async{
-    var apiUrl="http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1";
+    var apiUrl="http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=${_page}";
     Response response = await Dio().get(apiUrl);
     var res = json.decode(response.data)["result"];
 
@@ -53,7 +53,7 @@ class _News extends State{
     }
   }
 
-  //下拉处理   下拉和滚动不是一起的
+  //下拉处理   下拉和滚动不是一起的   Future表示异步编程操作结果
   Future<void> _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 2000), () {
       print('请求数据完成');
@@ -72,24 +72,90 @@ class _News extends State{
         title: Text('dio测试'),
       ),
       body: this._list.length>0
-            ? RefreshIndicator(
+            ? RefreshIndicator(                 //实例化RefreshIndicator 刷新指示器
                 child: ListView.builder(
                   controller: _scrollController, //对应的滚动触发实例化
                   itemCount: this._list.length, //20
+                  itemBuilder: (context,index){
+                    if (index == this._list.length-1){
+                      //拉到底
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text("${this._list[index]["title"]}",
+                                maxLines: 1),
+                          ),
+                          Divider(),
+                          _getMoreWidget()
+                        ],
+                      );
 
+                    } else {
+                      return Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text("${this._list[index]["title"]}",
+                                maxLines: 1),
+                            onTap: (){
+                              Navigator.pushNamed(context, '/newscontent',arguments:{
+                                "aid":this._list[index]["aid"]
+                              });
+                            },
+                          ),
+                          Divider()
+                        ],
+                      );
+                     }
+                  },
 
                 ),
                 onRefresh: _onRefresh  //下拉事件监听， _onRefresh触发事件
               )
-            :Text('加载中..........')
+            : _getMoreWidget()
             
 
     );
   }
 
 
+//加载中的圈圈
+  Widget _getMoreWidget() {
+
+    if(hasMore){
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                '加载中...',
+                style: TextStyle(fontSize: 16.0),
+              ),
+              CircularProgressIndicator(
+                strokeWidth: 1.0,
+              )
+            ],
+          ),
+        ),
+      );
+    }else{
+      return Center(
+        child: Text("--我是有底线的--"),
+      );
+    }
+  }
+
+
+
+
 
 }
+
+
+
+
 
 
 /*

@@ -5,6 +5,8 @@ import '../pages/ListPage.dart';
 import '../pages/CollectPage.dart';
 import '../pages/Tabs.dart';
 import '../pages/News.dart';
+import '../pages/newscontent2.dart';
+import '../pages/newscontent.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,8 @@ final  routes={                   //配置命名路由
   '/collect':(context)=>CollectPage(),
   '/tabs':(context)=>Tabs(),
   '/':(context)=>News(),
+
+   '/newscontent':(context,{arguments})=>NewsContent(arguments:arguments),
   '/httpdemo':(context)=>HttpDemo(),
 };
 
