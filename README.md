@@ -15,10 +15,9 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-
 1.Flutter 两种设计风格: Material 风格、Cupertino风格。
 
-2.使用http包 需要先引起依赖
+2.使用http包 需要先引起依赖 ：https://pub.flutter-io.cn/packages
 依赖包管理文件：pubspec.yaml
 dev_dependencies:
 http: ^0.11.0
@@ -51,5 +50,15 @@ Container添加 padding, margins, borders, background color, 或将其他装饰�
 GridView将 widgets 排列为可滚动的网格.
 ListView将widget排列为可滚动列表
 Stack将widget重叠在另一个widget之上.
+
+
+
+
+7. flutter  基础组件类：  
+   StatelessWidget 无状态组件 （渲染的变量传入后无法改变）
+   StatefulWidget  有状态组件  
+   state 继承的是statefulWidget
+   有状态组件需要先   className({Key? key}) : super(key: key);   //为子类初始化[key],定义常量
+  
 
 
